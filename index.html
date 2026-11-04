@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pest Plus & Cleaning Plus — Digital Growth Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070d1a; --bg2:#0d1730; --card:rgba(255,255,255,.05); --line:rgba(255,255,255,.12);
+  --text:#eef3fb; --muted:#9fb0cc;
+  --pest:#22d3a0; --clean:#38bdf8; --accent:#a78bfa; --warn:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;animation:float 18s ease-in-out infinite}
+.o1{width:480px;height:480px;background:var(--pest);top:-120px;left:-100px}
+.o2{width:520px;height:520px;background:var(--clean);bottom:-160px;right:-120px;animation-delay:-6s}
+.o3{width:360px;height:360px;background:var(--accent);top:40%;left:55%;opacity:.2;animation-delay:-12s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.15)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:.25;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%)}
+
+.slide{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:center;padding:6vh 7vw 9vh;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s,visibility .5s}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto}
+.slide .a{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.slide.active .a{opacity:1;transform:none;transition-delay:calc(var(--i,0)*.11s + .15s)}
+.slide .l{opacity:0;transform:translateX(-50px);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+.slide.active .l{opacity:1;transform:none;transition-delay:calc(var(--i,0)*.11s + .15s)}
+.slide .r{opacity:0;transform:translateX(60px) scale(.96);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+.slide.active .r{opacity:1;transform:none;transition-delay:calc(var(--i,0)*.11s + .25s)}
+
+.tag{display:inline-flex;align-items:center;gap:10px;font-size:clamp(11px,1vw,14px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pest);margin-bottom:2vh}
+.tag b{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--pest);color:#04120d;letter-spacing:0;font-size:14px}
+h1{font-size:clamp(38px,6.4vw,92px);line-height:1.02;font-weight:800;letter-spacing:-.03em}
+h2{font-size:clamp(28px,3.9vw,56px);line-height:1.08;font-weight:800;letter-spacing:-.025em;margin-bottom:2.2vh}
+h3{font-size:clamp(16px,1.5vw,22px);font-weight:700;margin-bottom:.8vh}
+p,li{color:var(--muted);font-size:clamp(13px,1.25vw,18px);line-height:1.55}
+.grad{background:linear-gradient(90deg,var(--pest),var(--clean));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:62ch;margin-bottom:3vh;font-size:clamp(14px,1.45vw,21px)}
+
+.cols{display:grid;gap:3vw;grid-template-columns:1.05fr 1fr;align-items:center}
+.cards{display:grid;gap:1.4vw}
+.c2{grid-template-columns:repeat(2,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.6vw 1.5vw;backdrop-filter:blur(8px);transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--pest)}
+.ic{font-size:clamp(22px,2.2vw,32px);margin-bottom:1vh;display:block}
+.card p{font-size:clamp(12px,1.05vw,15px)}
+ul.ck{list-style:none;display:grid;gap:1.1vh}
+ul.ck li{position:relative;padding-left:30px}
+ul.ck li::before{content:"✓";position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:rgba(34,211,160,.18);color:var(--pest);font-size:12px;font-weight:800;display:grid;place-items:center;margin-top:3px}
+ul.ck li b{color:var(--text)}
+.impact{margin-top:2.6vh;padding:1.4vw 1.6vw;border-radius:16px;border:1px solid rgba(34,211,160,.4);background:linear-gradient(90deg,rgba(34,211,160,.12),rgba(56,189,248,.08))}
+.impact h3{color:var(--pest);font-size:clamp(12px,1vw,14px);letter-spacing:.15em;text-transform:uppercase}
+.impact p{color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2vh}
+.chip{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:clamp(11px,.95vw,14px);color:var(--text)}
+.brandrow{display:flex;gap:1.5vw;margin-top:3vh}
+.brand{flex:1;padding:1.6vw;border-radius:18px;border:1px solid var(--line);background:var(--card)}
+.brand.p{border-top:3px solid var(--pest)}.brand.c{border-top:3px solid var(--clean)}
+.stat{font-size:clamp(34px,4.6vw,68px);font-weight:800;letter-spacing:-.03em}
+.statl{font-size:clamp(11px,1vw,14px);color:var(--muted)}
+
+/* mockups */
+.mock{position:relative;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,#101c38,#0a1226);box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+.bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+.mb{padding:16px}
+.hero-m{height:110px;border-radius:12px;background:linear-gradient(120deg,rgba(34,211,160,.45),rgba(56,189,248,.45));display:flex;flex-direction:column;justify-content:center;padding:0 16px;gap:8px}
+.ln{height:8px;border-radius:4px;background:rgba(255,255,255,.55)}.ln.s{width:40%;opacity:.6}.ln.m{width:65%}
+.btn-m{width:110px;height:24px;border-radius:99px;background:#fff;color:#04120d;font-size:11px;font-weight:700;display:grid;place-items:center}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.tile{height:56px;border-radius:10px;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:20px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{padding:10px;border-radius:10px;background:rgba(255,255,255,.06)}
+.kpi small{display:block;color:var(--muted);font-size:10px}.kpi strong{font-size:18px}
+.row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);margin-bottom:6px;font-size:12px;color:var(--text)}
+.dot{width:8px;height:8px;border-radius:50%}
+.pill{margin-left:auto;font-size:10px;padding:3px 9px;border-radius:99px;font-weight:700}
+.bars{display:flex;align-items:flex-end;gap:7px;height:70px;margin-top:8px}
+.bars span{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(var(--pest),var(--clean));height:0;transition:height 1s .6s}
+.slide.active .bars span{height:var(--h)}
+.chat{display:grid;gap:8px;padding:16px}
+.msg{max-width:82%;padding:9px 12px;border-radius:14px;font-size:12px;line-height:1.4;opacity:0;transform:translateY(10px)}
+.msg.u{justify-self:end;background:var(--clean);color:#03131d;border-bottom-right-radius:4px}
+.msg.b{background:rgba(255,255,255,.1);color:var(--text);border-bottom-left-radius:4px}
+.slide.active .msg{animation:pop .5s forwards;animation-delay:calc(var(--d)*1s + .6s)}
+@keyframes pop{to{opacity:1;transform:none}}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bl 1s infinite}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes bl{50%{opacity:.2}}
+.phones{display:flex;gap:18px;justify-content:center;align-items:center}
+.phone{width:clamp(150px,15vw,215px);aspect-ratio:9/18.5;border-radius:30px;border:6px solid #1c2a4d;background:linear-gradient(170deg,#0f1c3a,#08101f);padding:14px 11px;box-shadow:0 30px 70px rgba(0,0,0,.55);position:relative;overflow:hidden}
+.phone::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:50px;height:12px;border-radius:9px;background:#000}
+.phone.mid{transform:translateY(-14px) scale(1.06)}
+.ph-t{margin-top:16px;font-size:12px;font-weight:700;color:var(--text)}
+.ph-s{font-size:9px;color:var(--muted)}
+.ph-c{margin-top:8px;padding:9px;border-radius:12px;background:rgba(255,255,255,.07);font-size:10px;color:var(--text)}
+.ph-btn{margin-top:8px;padding:8px;border-radius:99px;background:linear-gradient(90deg,var(--pest),var(--clean));color:#04120d;font-weight:800;font-size:10px;text-align:center}
+.track{height:5px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:8px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--pest);transition:width 2s 1s}
+.slide.active .track i{width:70%}
+.stars{color:var(--warn);letter-spacing:3px;font-size:14px}
+
+/* flow */
+.flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw;align-items:center;margin-top:2vh}
+.hub{grid-column:2;grid-row:1/3;display:grid;place-items:center;text-align:center;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(34,211,160,.3),rgba(56,189,248,.08) 70%);border:1px dashed var(--pest);animation:pulse 3s infinite}
+@keyframes pulse{50%{box-shadow:0 0 60px rgba(34,211,160,.35)}}
+.hub strong{font-size:clamp(14px,1.5vw,22px);display:block}
+.node{padding:1.1vw;border-radius:14px;border:1px solid var(--line);background:var(--card)}
+.node h3{font-size:clamp(13px,1.2vw,17px)}.node p{font-size:clamp(11px,.95vw,14px)}
+
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;position:relative;margin-top:2vh}
+.tl::before{content:"";position:absolute;top:18px;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--pest),var(--clean));transition:width 1.6s .5s}
+.slide.active .tl::before{width:100%}
+.ph{padding-top:46px;position:relative}
+.ph::before{content:attr(data-n);position:absolute;top:0;left:0;width:38px;height:38px;border-radius:50%;background:var(--bg);border:2px solid var(--pest);display:grid;place-items:center;font-weight:800;color:var(--pest)}
+.ph small{color:var(--pest);font-weight:700;font-size:12px}
+
+/* nav */
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 7vw}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--pest),var(--clean));z-index:11;transition:width .5s}
+.dots{display:flex;gap:7px}.dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
+.dots button.on{background:var(--pest);width:26px;border-radius:5px}
+.arrows button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;font-size:16px;margin-left:8px}
+.arrows button:hover{border-color:var(--pest)}
+.brandmark{font-size:12px;color:var(--muted);letter-spacing:.1em}
+.logo-o{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(14px,1.4vw,20px)}
+.logo-o i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--pest),var(--clean));display:grid;place-items:center;color:#04120d;font-style:normal}
+@media(max-width:900px){
+  html,body{overflow:auto}.slide{position:fixed;overflow-y:auto;justify-content:flex-start;padding-top:8vh}
+  .cols,.c3,.c4,.flow,.tl{grid-template-columns:1fr}.c2{grid-template-columns:1fr 1fr}.hub{display:none}.phones{flex-wrap:wrap}.brandrow{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div id="bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="grid"></div></div>
+<div id="prog"></div>
+
+<!-- 1 TITLE -->
+<section class="slide active">
+  <div class="a" style="--i:0"><span class="logo-o"><i>O</i> Optimal Solutions</span></div>
+  <div class="tag a" style="--i:1;margin-top:5vh">Digital Growth Proposal</div>
+  <h1 class="a" style="--i:2">Turning <span class="grad">Pest Plus</span><br>& <span class="grad">Cleaning Plus</span><br>into a digital-first brand.</h1>
+  <p class="lead a" style="--i:3;margin-top:3vh">A complete platform: a sales-driven website, a CRM & operations system, an AI sales assistant, and a customer mobile app.</p>
+  <div class="chips a" style="--i:4"><span class="chip">🌐 Website</span><span class="chip">📊 CRM & Operations</span><span class="chip">🤖 AI Chatbot</span><span class="chip">📱 Mobile App</span></div>
+</section>
+
+<!-- 2 ABOUT CLIENT -->
+<section class="slide">
+  <div class="tag a" style="--i:0">About you</div>
+  <h2 class="a" style="--i:1">Beirut's trusted partner for <span class="grad">healthy, clean spaces</span></h2>
+  <p class="lead a" style="--i:2">Pest Plus serves homes, offices, restaurants, warehouses and medical facilities across all regions of Lebanon, with a promised 24-hour response and eco-friendly, family-safe treatments.</p>
+  <div class="brandrow">
+    <div class="brand p l" style="--i:3"><h3 style="color:var(--pest)">🐜 Pest Plus</h3>
+      <div class="chips"><span class="chip">Cockroach</span><span class="chip">Ants</span><span class="chip">Mosquito</span><span class="chip">Rodents</span><span class="chip">Termites</span><span class="chip">General prevention</span></div></div>
+    <div class="brand c r" style="--i:4"><h3 style="color:var(--clean)">✨ Cleaning Plus</h3>
+      <div class="chips"><span class="chip">Deep cleaning</span><span class="chip">Facade & windows</span><span class="chip">Furniture</span><span class="chip">Post-construction</span><span class="chip">After-fire</span><span class="chip">Water tanks</span></div></div>
+  </div>
+  <div class="impact a" style="--i:5"><h3>The opportunity</h3><p>Strong services and a real reputation, but today customers can only reach you by phone or email: no online booking, no instant quotes, no tracking, no feedback loop. That is where growth is leaking.</p></div>
+</section>
+
+<!-- 3 ABOUT US -->
+<section class="slide">
+  <div class="tag a" style="--i:0">About us</div>
+  <h2 class="a" style="--i:1">Optimal Solutions: <span class="grad">innovative solutions through collaboration</span></h2>
+  <p class="lead a" style="--i:2">Since 2010 we have designed and built enterprise systems (ERP, HRM, CRM) and custom applications for companies across many industries, end-to-end: from concept to design, development and support.</p>
+  <div class="cards c4">
+    <div class="card a" style="--i:3"><div class="stat grad">200+</div><div class="statl">Happy customers</div></div>
+    <div class="card a" style="--i:4"><div class="stat grad">18+</div><div class="statl">Countries served</div></div>
+    <div class="card a" style="--i:5"><div class="stat grad">15+</div><div class="statl">Years of experience (since 2010)</div></div>
+    <div class="card a" style="--i:6"><div class="stat grad">90</div><div class="statl">Days satisfaction guarantee</div></div>
+  </div>
+  <div class="chips a" style="--i:7"><span class="chip">Custom development</span><span class="chip">End-to-end delivery</span><span class="chip">UX & design</span><span class="chip">Powerful security</span><span class="chip">24/7 support</span><span class="chip">On-time delivery</span></div>
+</section>
+
+<!-- 4 OVERVIEW -->
+<section class="slide">
+  <div class="tag a" style="--i:0">The proposal</div>
+  <h2 class="a" style="--i:1">Four pillars. <span class="grad">One connected business.</span></h2>
+  <p class="lead a" style="--i:2">Each piece is valuable alone, but together they form a single growth engine: attract, convert, deliver, retain.</p>
+  <div class="cards c4">
+    <div class="card a" style="--i:3"><span class="ic">🌐</span><h3>1. Smart Website</h3><p>Modern, interactive and built to turn visitors into booked jobs.</p></div>
+    <div class="card a" style="--i:4"><span class="ic">📊</span><h3>2. CRM & Operations</h3><p>Leads, quotes, scheduling, technicians, contracts and reports in one place.</p></div>
+    <div class="card a" style="--i:5"><span class="ic">🤖</span><h3>3. AI Sales Chatbot</h3><p>Answers, qualifies and books customers 24/7 on web and WhatsApp.</p></div>
+    <div class="card a" style="--i:6"><span class="ic">📱</span><h3>4. Customer App</h3><p>Order services, track visits, rebook and leave feedback from a phone.</p></div>
+  </div>
+  <div class="chips a" style="--i:7"><span class="chip">Attract →</span><span class="chip">Convert →</span><span class="chip">Deliver →</span><span class="chip">Retain</span></div>
+</section>
+
+<!-- 5 WEBSITE -->
+<section class="slide">
+  <div class="cols">
+    <div>
+      <div class="tag a" style="--i:0"><b>1</b> Website</div>
+      <h2 class="a" style="--i:1">A website built to <span class="grad">sell</span>, not just inform</h2>
+      <ul class="ck">
+        <li class="a" style="--i:2"><b>Two clear brands:</b> dedicated experiences for Pest Plus and Cleaning Plus, each with its own service pages.</li>
+        <li class="a" style="--i:3"><b>Online booking & instant quote request</b> instead of "call or email us".</li>
+        <li class="a" style="--i:4"><b>Trust builders:</b> certifications, before/after galleries, reviews, case studies, team.</li>
+        <li class="a" style="--i:5"><b>Interactive tools:</b> pest identifier, price estimator, service-area map.</li>
+        <li class="a" style="--i:6"><b>Fast, mobile-first, SEO-ready</b> and bilingual (English / Arabic), with WhatsApp and click-to-call everywhere.</li>
+      </ul>
+      <div class="impact a" style="--i:7"><h3>Business impact</h3><p>More inquiries from the same traffic, a premium brand image that supports higher pricing, better Google ranking for "pest control Lebanon", and every lead captured automatically.</p></div>
+    </div>
+    <div class="mock r" style="--i:3">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="mb"><div class="hero-m"><div class="ln m"></div><div class="ln s"></div><div class="btn-m">Book now</div></div>
+      <div class="tiles"><div class="tile">🐜</div><div class="tile">🪟</div><div class="tile">🛋️</div><div class="tile">🦟</div><div class="tile">🔥</div><div class="tile">💧</div></div>
+      <div class="row" style="margin-top:10px">⭐ 4.9 customer rating <span class="pill" style="background:rgba(34,211,160,.2);color:var(--pest)">Free inspection</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 CRM -->
+<section class="slide">
+  <div class="cols">
+    <div>
+      <div class="tag a" style="--i:0"><b>2</b> CRM + Operations</div>
+      <h2 class="a" style="--i:1">Run both companies from <span class="grad">one control room</span></h2>
+      <ul class="ck">
+        <li class="a" style="--i:2"><b>CRM & sales pipeline:</b> every lead from web, calls, WhatsApp and social, with follow-up reminders and conversion tracking.</li>
+        <li class="a" style="--i:3"><b>Quotes & contracts:</b> instant quotations, annual maintenance contracts (AMC) and auto-renewals.</li>
+        <li class="a" style="--i:4"><b>Smart scheduling & dispatch:</b> assign technicians and teams by zone, skill and availability.</li>
+        <li class="a" style="--i:5"><b>Field app for technicians:</b> job checklists, photos, chemicals used, client signature.</li>
+        <li class="a" style="--i:6"><b>Inventory, invoicing & reports:</b> stock, payments and live dashboards per brand, branch and technician.</li>
+      </ul>
+      <div class="impact a" style="--i:7"><h3>Business impact</h3><p>No lost leads, fewer scheduling errors, recurring revenue from contracts, full visibility of performance and cost, and a business that scales without chaos.</p></div>
+    </div>
+    <div class="mock r" style="--i:3">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="mb">
+        <div class="kpis"><div class="kpi"><small>Today's jobs</small><strong>38</strong></div><div class="kpi"><small>New leads</small><strong style="color:var(--pest)">+12</strong></div><div class="kpi"><small>Revenue</small><strong>$4.2k</strong></div></div>
+        <div class="row"><span class="dot" style="background:var(--pest)"></span>Rodent control · Hamra<span class="pill" style="background:rgba(34,211,160,.2);color:var(--pest)">Done</span></div>
+        <div class="row"><span class="dot" style="background:var(--warn)"></span>Deep cleaning · Achrafieh<span class="pill" style="background:rgba(251,191,36,.2);color:var(--warn)">On the way</span></div>
+        <div class="row"><span class="dot" style="background:var(--clean)"></span>Water tank · Jounieh<span class="pill" style="background:rgba(56,189,248,.2);color:var(--clean)">Scheduled</span></div>
+        <div class="bars"><span style="--h:35%"></span><span style="--h:55%"></span><span style="--h:45%"></span><span style="--h:75%"></span><span style="--h:60%"></span><span style="--h:90%"></span><span style="--h:80%"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 CHATBOT -->
+<section class="slide">
+  <div class="cols">
+    <div>
+      <div class="tag a" style="--i:0"><b>3</b> AI Sales Chatbot</div>
+      <h2 class="a" style="--i:1">A sales agent that <span class="grad">never sleeps</span></h2>
+      <ul class="ck">
+        <li class="a" style="--i:2"><b>Answers instantly</b> about services, safety, coverage areas and preparation, in English and Arabic.</li>
+        <li class="a" style="--i:3"><b>Qualifies leads:</b> asks property type, pest, size and urgency, then gives a price range.</li>
+        <li class="a" style="--i:4"><b>Books the visit</b> directly into the CRM calendar and confirms by WhatsApp.</li>
+        <li class="a" style="--i:5"><b>Upsells smartly:</b> suggests cleaning with pest control, and contracts after one-off jobs.</li>
+        <li class="a" style="--i:6"><b>Hands over to a human</b> with full context when needed.</li>
+      </ul>
+      <div class="impact a" style="--i:7"><h3>Business impact</h3><p>No missed inquiry at night or on weekends, faster response than any competitor, less load on the call team, and higher conversion because customers are answered while their interest is highest.</p></div>
+    </div>
+    <div class="mock r" style="--i:3">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="chat">
+        <div class="msg u" style="--d:0">Hi, I have cockroaches in my restaurant kitchen 😟</div>
+        <div class="msg b" style="--d:1">Sorry to hear that! I can help. How large is the space, and is it urgent?</div>
+        <div class="msg u" style="--d:2">About 120 m². Urgent, please.</div>
+        <div class="msg b" style="--d:3">Estimated $90–$140. We can send a technician tomorrow at 9:00. Shall I book it?</div>
+        <div class="msg u" style="--d:4">Yes please ✅</div>
+        <div class="msg b" style="--d:5">Booked! You'll get a WhatsApp confirmation. 🎉</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 APP -->
+<section class="slide">
+  <div class="cols" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <div class="tag a" style="--i:0"><b>4</b> Customer Mobile App</div>
+      <h2 class="a" style="--i:1">Your brand in <span class="grad">every customer's pocket</span></h2>
+      <ul class="ck">
+        <li class="a" style="--i:2"><b>Order in seconds:</b> pick a service, date and address, and pay or request a quote.</li>
+        <li class="a" style="--i:3"><b>Live visit tracking:</b> technician on the way, arrival time, job status and report with photos.</li>
+        <li class="a" style="--i:4"><b>Service history & contracts:</b> next treatment dates, certificates and invoices.</li>
+        <li class="a" style="--i:5"><b>Feedback & ratings</b> after every visit, with issues routed straight to management.</li>
+        <li class="a" style="--i:6"><b>Push notifications & offers:</b> reminders, seasonal campaigns and loyalty rewards. iOS and Android.</li>
+      </ul>
+      <div class="impact a" style="--i:7"><h3>Business impact</h3><p>Repeat bookings on autopilot, higher customer lifetime value, transparent service that builds trust, and a direct marketing channel you own.</p></div>
+    </div>
+    <div class="phones r" style="--i:3">
+      <div class="phone"><div class="ph-t">Our services</div><div class="ph-s">What do you need?</div><div class="ph-c">🐜 Pest control</div><div class="ph-c">✨ Deep cleaning</div><div class="ph-c">🛋️ Furniture</div><div class="ph-btn">Book now</div></div>
+      <div class="phone mid"><div class="ph-t">Your visit</div><div class="ph-s">Today · 10:30</div><div class="ph-c">🚗 Ahmad is on the way<div class="track"><i></i></div></div><div class="ph-c">Treatment: Rodent control</div><div class="ph-btn">Call technician</div></div>
+      <div class="phone"><div class="ph-t">Rate your visit</div><div class="ph-s">How did we do?</div><div class="ph-c" style="text-align:center"><span class="stars">★★★★★</span></div><div class="ph-c">"Fast and professional!"</div><div class="ph-btn">Submit</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 CONNECTED -->
+<section class="slide">
+  <div class="tag a" style="--i:0">How it fits together</div>
+  <h2 class="a" style="--i:1">One platform, <span class="grad">one source of truth</span></h2>
+  <p class="lead a" style="--i:2">Everything feeds the CRM, so management sees the whole customer journey in real time.</p>
+  <div class="flow">
+    <div class="node l" style="--i:3"><h3>🌐 Website</h3><p>Bookings and quote requests flow in automatically.</p></div>
+    <div class="hub a" style="--i:4"><div><strong>CRM +<br>Operations</strong><p style="margin-top:6px">Single customer record</p></div></div>
+    <div class="node r" style="--i:3"><h3>🤖 AI Chatbot</h3><p>Qualified leads and booked visits.</p></div>
+    <div class="node l" style="--i:5"><h3>📱 Customer App</h3><p>Orders, tracking and feedback.</p></div>
+    <div class="node r" style="--i:5"><h3>🔧 Technician App</h3><p>Job updates, photos and reports.</p></div>
+  </div>
+  <div class="impact a" style="--i:6"><h3>Result</h3><p>Lead → quote → visit → invoice → feedback → rebooking, all measured and automated.</p></div>
+</section>
+
+<!-- 10 IMPACT -->
+<section class="slide">
+  <div class="tag a" style="--i:0">Why it matters</div>
+  <h2 class="a" style="--i:1">Grow faster. <span class="grad">Control everything.</span></h2>
+  <div class="cards c3" style="margin-top:2vh">
+    <div class="card a" style="--i:2"><span class="ic">📈</span><h3>Grow revenue</h3><p>More leads captured, higher conversion, recurring contracts and cross-selling between Pest Plus and Cleaning Plus.</p></div>
+    <div class="card a" style="--i:3"><span class="ic">⚙️</span><h3>Cut waste</h3><p>Less manual coordination, paperwork and phone tag. Technicians spend more time on jobs and less on admin.</p></div>
+    <div class="card a" style="--i:4"><span class="ic">👁️</span><h3>Gain visibility</h3><p>Live dashboards on sales, jobs, technicians, stock and cash by brand and branch.</p></div>
+    <div class="card a" style="--i:5"><span class="ic">⭐</span><h3>Delight customers</h3><p>Fast replies, transparent tracking, easy rebooking and a voice through feedback.</p></div>
+    <div class="card a" style="--i:6"><span class="ic">🏆</span><h3>Stand out</h3><p>A premium digital experience few local competitors offer, which builds trust and justifies better pricing.</p></div>
+    <div class="card a" style="--i:7"><span class="ic">🚀</span><h3>Scale with ease</h3><p>Add branches, technicians, services or even new cities without rebuilding how you operate.</p></div>
+  </div>
+</section>
+
+<!-- 11 ROADMAP -->
+<section class="slide">
+  <div class="tag a" style="--i:0">Roadmap</div>
+  <h2 class="a" style="--i:1">From idea to launch, <span class="grad">in clear phases</span></h2>
+  <div class="tl">
+    <div class="ph a" data-n="1" style="--i:2"><small>PHASE 1</small><h3>Discovery & Design</h3><p>Workshops, process mapping, brand direction, UX and prototypes.</p></div>
+    <div class="ph a" data-n="2" style="--i:3"><small>PHASE 2</small><h3>Website + CRM core</h3><p>Launch the new site and the CRM with leads, quotes and scheduling.</p></div>
+    <div class="ph a" data-n="3" style="--i:4"><small>PHASE 3</small><h3>AI Chatbot + Tech app</h3><p>Chatbot on web and WhatsApp, technician field app, invoicing and reports.</p></div>
+    <div class="ph a" data-n="4" style="--i:5"><small>PHASE 4</small><h3>Customer App</h3><p>iOS and Android launch, notifications, loyalty and continuous improvement.</p></div>
+  </div>
+  <div class="impact a" style="--i:6"><h3>Included with every phase</h3><p>Training for your team, security best practices, 24/7 support after go-live and our 90-day satisfaction guarantee.</p></div>
+</section>
+
+<!-- 12 THANKS -->
+<section class="slide" style="text-align:center;align-items:center">
+  <div class="a" style="--i:0"><span class="logo-o"><i>O</i> Optimal Solutions</span></div>
+  <h1 class="a" style="--i:1;margin-top:4vh">Let's build the <span class="grad">future of Pest Plus</span> together.</h1>
+  <p class="lead a" style="--i:2;margin:3vh auto">Next step: a short discovery session to align on priorities, timeline and investment.</p>
+  <div class="chips a" style="--i:3;justify-content:center"><span class="chip">🌐 optimalsolutions.io</span><span class="chip">📞 +44 1865 60 0679</span><span class="chip">💬 WhatsApp available</span></div>
+</section>
+
+<div id="nav">
+  <div class="brandmark">OPTIMAL SOLUTIONS × PEST PLUS</div>
+  <div class="dots" id="dots"></div>
+  <div class="arrows"><button id="prev" aria-label="Previous">←</button><button id="next" aria-label="Next">→</button></div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dots=document.getElementById('dots'),prog=document.getElementById('prog');
+let cur=0;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.onclick=()=>go(i);dots.appendChild(b)});
+function go(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  slides[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');
+  [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===cur));
+  prog.style.width=((cur+1)/slides.length*100)+'%';
+  location.hash=cur+1;
+}
+document.getElementById('next').onclick=()=>go(cur+1);
+document.getElementById('prev').onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f')document.documentElement.requestFullscreen?.();
+});
+let sx=0;addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>60)go(cur+(d<0?1:-1))});
+slides[0].classList.remove('active');
+go((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
